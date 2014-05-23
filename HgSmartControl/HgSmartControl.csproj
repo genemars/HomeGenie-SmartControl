@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{585495C3-ACB5-4E1B-8E95-FFDB673FB727}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HgSmartControl</RootNamespace>
+    <AssemblyName>HgSmartControl</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EventSource4Net, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\EventSource4Net\EventSource4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot">
+      <HintPath>..\Libs\OxyPlot\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.WindowsForms">
+      <HintPath>..\Libs\OxyPlot\OxyPlot.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Client\Data\Event.cs" />
+    <Compile Include="Client\Data\Group.cs" />
+    <Compile Include="Client\Data\Module.cs" />
+    <Compile Include="Client\Data\ModuleParameter.cs" />
+    <Compile Include="Client\ControlApi.cs" />
+    <Compile Include="Client\Utility.cs" />
+    <Compile Include="Controls\CenterPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CenterPanel.Designer.cs">
+      <DependentUpon>CenterPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartControl.Designer.cs">
+      <DependentUpon>SmartControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Widgets\Commands\Level.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\Commands\Level.Designer.cs">
+      <DependentUpon>Level.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Dimmer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\Dimmer.Designer.cs">
+      <DependentUpon>Dimmer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\GraphPlotter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\GraphPlotter.Designer.cs">
+      <DependentUpon>GraphPlotter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Commands\Switch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\Commands\Switch.Designer.cs">
+      <DependentUpon>Switch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\GroupList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\GroupList.Designer.cs">
+      <DependentUpon>GroupList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\GroupView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\GroupView.Designer.cs">
+      <DependentUpon>GroupView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Tiles\DoorWindowTile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\Tiles\DoorWindowTile.Designer.cs">
+      <DependentUpon>DoorWindowTile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Tiles\GenericTile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\Tiles\GenericTile.Designer.cs">
+      <DependentUpon>GenericTile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Tiles\SensorTile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\Tiles\SensorTile.Designer.cs">
+      <DependentUpon>SensorTile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Tiles\TileBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\Tiles\TileBase.Designer.cs">
+      <DependentUpon>TileBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\UiHelper.cs" />
+    <Compile Include="Widgets\Weather.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\Weather.Designer.cs">
+      <DependentUpon>Weather.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Controls\CenterPanel.resx">
+      <DependentUpon>CenterPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartControl.resx">
+      <DependentUpon>SmartControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Widgets\Commands\Level.resx">
+      <DependentUpon>Level.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Widgets\Dimmer.resx">
+      <DependentUpon>Dimmer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Widgets\GraphPlotter.resx">
+      <DependentUpon>GraphPlotter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Widgets\Commands\Switch.resx">
+      <DependentUpon>Switch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Widgets\GroupList.resx">
+      <DependentUpon>GroupList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Widgets\GroupView.resx">
+      <DependentUpon>GroupView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Widgets\Tiles\DoorWindowTile.resx">
+      <DependentUpon>DoorWindowTile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Widgets\Tiles\GenericTile.resx">
+      <DependentUpon>GenericTile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Widgets\Tiles\SensorTile.resx">
+      <DependentUpon>SensorTile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Widgets\Tiles\TileBase.resx">
+      <DependentUpon>TileBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Widgets\Weather.resx">
+      <DependentUpon>Weather.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Weather\weather_day_chancerain.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
