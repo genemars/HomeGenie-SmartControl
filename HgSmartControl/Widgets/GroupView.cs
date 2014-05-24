@@ -1,4 +1,26 @@
-﻿using System;
+﻿/*
+    This file is part of HomeGenie Project source code.
+
+    HomeGenie is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    HomeGenie is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with HomeGenie.  If not, see <http://www.gnu.org/licenses/>.  
+*/
+
+/*
+ *     Author: Generoso Martello <gene@homegenie.it>
+ *     Project Homepage: http://homegenie.it
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -7,7 +29,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HgSmartControl.Client.Data;
+
+using HomeGenie.Client.Data;
 using HgSmartControl.Widgets.Tiles;
 
 namespace HgSmartControl.Widgets
@@ -30,7 +53,7 @@ namespace HgSmartControl.Widgets
         {
             this.group = g;
             //
-            labelGroup.Text = g.Name;
+            centerPanelView.Text = g.Name;
             //
             List<Module> controlModules = new List<Module>();
             foreach (Module m in group.Modules)
@@ -104,19 +127,9 @@ namespace HgSmartControl.Widgets
             return isValid;
         }
 
-        private void labelGroup_Click(object sender, EventArgs e)
+        private void centerPanelView_TextClicked(object sender, string e)
         {
             if (GroupsButtonClicked != null) GroupsButtonClicked(this, new EventArgs());
-        }
-
-        private void pictureBoxRight_Click(object sender, EventArgs e)
-        {
-            centerPanelView.ShowNext();
-        }
-
-        private void pictureBoxLeft_Click(object sender, EventArgs e)
-        {
-            centerPanelView.ShowPrevious();
         }
 
     }

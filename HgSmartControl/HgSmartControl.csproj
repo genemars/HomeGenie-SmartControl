@@ -58,12 +58,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client\Data\Event.cs" />
-    <Compile Include="Client\Data\Group.cs" />
-    <Compile Include="Client\Data\Module.cs" />
-    <Compile Include="Client\Data\ModuleParameter.cs" />
-    <Compile Include="Client\ControlApi.cs" />
-    <Compile Include="Client\Utility.cs" />
     <Compile Include="Controls\CenterPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -211,6 +205,12 @@
     <Content Include="Images\Weather\weather_day_chancerain.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HomeGenie-Net-ClientLib\HomeGenie-Net-ClientLib.csproj">
+      <Project>{0bae30c2-453c-44e8-8bb1-d4216dea7442}</Project>
+      <Name>HomeGenie-Net-ClientLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -30,9 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GroupList));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.listBoxGroups = new System.Windows.Forms.ListBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.listBoxGroups = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -56,6 +56,21 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(313, 241);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // listBoxGroups
+            // 
+            this.listBoxGroups.BackColor = System.Drawing.Color.Black;
+            this.listBoxGroups.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tableLayoutPanel1.SetColumnSpan(this.listBoxGroups, 3);
+            this.listBoxGroups.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBoxGroups.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxGroups.ForeColor = System.Drawing.Color.White;
+            this.listBoxGroups.FormattingEnabled = true;
+            this.listBoxGroups.ItemHeight = 32;
+            this.listBoxGroups.Location = new System.Drawing.Point(3, 3);
+            this.listBoxGroups.Name = "listBoxGroups";
+            this.listBoxGroups.Size = new System.Drawing.Size(307, 195);
+            this.listBoxGroups.TabIndex = 0;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
@@ -76,21 +91,6 @@
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
-            // 
-            // listBoxGroups
-            // 
-            this.listBoxGroups.BackColor = System.Drawing.Color.Black;
-            this.listBoxGroups.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tableLayoutPanel1.SetColumnSpan(this.listBoxGroups, 3);
-            this.listBoxGroups.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxGroups.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBoxGroups.ForeColor = System.Drawing.Color.White;
-            this.listBoxGroups.FormattingEnabled = true;
-            this.listBoxGroups.ItemHeight = 32;
-            this.listBoxGroups.Location = new System.Drawing.Point(3, 3);
-            this.listBoxGroups.Name = "listBoxGroups";
-            this.listBoxGroups.Size = new System.Drawing.Size(307, 195);
-            this.listBoxGroups.TabIndex = 0;
             // 
             // GroupList
             // 

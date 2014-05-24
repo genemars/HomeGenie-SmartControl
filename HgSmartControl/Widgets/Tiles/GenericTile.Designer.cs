@@ -48,20 +48,21 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(111, 122);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labelName
             // 
+            this.labelName.AutoEllipsis = true;
             this.labelName.AutoSize = true;
             this.labelName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelName.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelName.ForeColor = System.Drawing.Color.White;
-            this.labelName.Location = new System.Drawing.Point(3, 90);
+            this.labelName.Location = new System.Drawing.Point(3, 92);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(105, 18);
+            this.labelName.Size = new System.Drawing.Size(105, 16);
             this.labelName.TabIndex = 7;
             this.labelName.Text = "Light";
             this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -84,7 +85,7 @@
             this.pictureBoxIcon.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxIcon.Location = new System.Drawing.Point(3, 3);
             this.pictureBoxIcon.Name = "pictureBoxIcon";
-            this.pictureBoxIcon.Size = new System.Drawing.Size(105, 84);
+            this.pictureBoxIcon.Size = new System.Drawing.Size(105, 86);
             this.pictureBoxIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxIcon.TabIndex = 9;
             this.pictureBoxIcon.TabStop = false;

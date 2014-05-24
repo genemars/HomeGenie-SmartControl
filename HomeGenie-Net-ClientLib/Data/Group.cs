@@ -20,23 +20,22 @@
  *     Project Homepage: http://homegenie.it
  */
 
+using HomeGenie.Client.Data;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace HgSmartControl.Widgets.Commands
+namespace HomeGenie.Client.Data
 {
-    public partial class Level : UserControl
-    {
-        public Level()
-        {
-            InitializeComponent();
-        }
-    }
+
+	public class Group
+	{
+		public String Name;
+		public List<Module> Modules;
+
+		public Group ()
+		{
+			Modules = new List<Module> ();
+		}
+	}
+
 }
