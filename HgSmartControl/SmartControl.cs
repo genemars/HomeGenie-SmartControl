@@ -37,9 +37,9 @@ namespace HgSmartControl
 
     public partial class SmartControl : Form
     {
-        private string hgServerAddress = "127.0.0.1";
+        private string hgServerAddress = "192.168.0.2";
         private string hgServerUser = "admin";
-        private string hgServerPassword = "";
+        private string hgServerPassword = "hgrocks";
 
         private Timer widgetCycle = new Timer();
         private UserControl currentWidget = null;
@@ -117,17 +117,51 @@ namespace HgSmartControl
 
         void ShowModuleScreen(Module m)
         {
-            widgetCycle.Stop();
-            this.Controls.Remove(currentWidget);
-            Dimmer dimmerWidget = new Dimmer();
-            dimmerWidget.CloseButtonClicked += (sender, args) =>
+            UserControl widget = null;
+            //
+            ModuleParameter widgetProperty = m.GetProperty("Widget.DisplayModule");
+            if (widgetProperty != null && !String.IsNullOrEmpty(widgetProperty.Value))
             {
-                this.Controls.Remove(dimmerWidget);
-                this.Controls.Add(currentWidget);
-                widgetCycle.Start();
-            };
-            dimmerWidget.Module = m;
-            this.Controls.Add(dimmerWidget);
+                switch (widgetProperty.Value)
+                {
+                    case "homegenie/generic/colorlight":
+                        widget = new ColorLight();
+                        (widget as ColorLight).CloseButtonClicked += (sender, args) =>
+                        {
+                            this.Controls.Remove(widget);
+                            this.Controls.Add(currentWidget);
+                            widgetCycle.Start();
+                        };
+                        (widget as ColorLight).Module = m;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            //
+            if (widget == null)
+            {
+                if (m.DeviceType == "Dimmer" || m.DeviceType == "Light" || m.DeviceType == "Shutter" || m.DeviceType == "Siren")
+                {
+                    widget = new Dimmer();
+                    (widget as Dimmer).CloseButtonClicked += (sender, args) =>
+                    {
+                        this.Controls.Remove(widget);
+                        this.Controls.Add(currentWidget);
+                        widgetCycle.Start();
+                    };
+                    (widget as Dimmer).Module = m;
+                }
+            }
+            //
+            if (widget != null)
+            {
+                widget.Dock = DockStyle.Fill;
+                //
+                widgetCycle.Stop();
+                this.Controls.Remove(currentWidget);
+                this.Controls.Add(widget);
+            }
         }
 
         void widgetCycle_Tick(object sender, EventArgs e)

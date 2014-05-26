@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Dynamic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +45,7 @@ namespace HgSmartControl.Widgets
             else
             {
                 action();
-            } 
+            }
         }
 
         public static Image ImageFromBytes(byte[] imageData)
@@ -59,5 +60,70 @@ namespace HgSmartControl.Widgets
             ms.Close();
             return image;
         }
+        
+        public static dynamic RgbToHsv(Color color)
+        {
+            float h;
+            float s;
+            float v;
+
+            int hex = color.R * 65536 + color.G * 256 + color.B;
+            string hexDigits = hex.ToString("X");
+            int len = hexDigits.Length;
+            if (len < 6)
+            {
+                for (int i = 0; i < 6 - len; i++)
+                {
+                    hexDigits = "0" + hexDigits;
+                }
+            }
+            float r = (float)color.R / 255F;
+            float g = (float)color.G / 255F;
+            float b = (float)color.B / 255F;
+            float M = Math.Max(Math.Max(r, g), b);
+            float m = Math.Min(Math.Min(r, g), b);
+            float C = M - m;
+
+            if (C == 0)
+            {
+                h = 0;
+            }
+            else if (M == r)
+            {
+                h = ((g - b) / C) % 6;
+            }
+            else if (M == g)
+            {
+                h = (b - r) / C + 2;
+            }
+            else
+            {
+                h = (r - g) / C + 4;
+            }
+            h *= 60;
+            if (h < 0)
+            {
+                h += 360;
+            }
+            v = M;
+            if (C == 0)
+            {
+                s = 0;
+            }
+            else
+            {
+                s = C / v;
+            }
+            s *= 100;
+            v *= 100;            
+            dynamic hsv = new ExpandoObject();
+            hsv.H = h;
+            hsv.S = s;
+            hsv.V = v;
+
+            return hsv;
+        }
+
     }
+
 }

@@ -111,7 +111,6 @@ namespace HgSmartControl.Widgets
 
         private void pictureBoxLevel_MouseUp(object sender, MouseEventArgs e)
         {
-            Console.WriteLine("MOUSE UP ... LEVEL  = " + currentLevel);
             labelStatus.Text = Math.Round(currentLevel * 100D, 0) + "%";
             
             if (currentLevel == 1D)

@@ -155,6 +155,13 @@ namespace HomeGenie.Client.Data
 			});
 		}
 
+        public void ExecuteCommand(string command)
+        {
+            host.ServiceCall(this.Domain + "/" + this.Address + "/" + command, () =>
+            {
+            });
+        }
+
 		public ModuleParameter GetProperty (string name)
 		{
 			ModuleParameter property = null;

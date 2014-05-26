@@ -93,6 +93,16 @@ namespace HgSmartControl.Properties {
         /// <summary>
         ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap huebar {
+            get {
+                object obj = ResourceManager.GetObject("huebar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap humidity {
             get {
                 object obj = ResourceManager.GetObject("humidity", resourceCulture);
