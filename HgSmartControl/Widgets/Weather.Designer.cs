@@ -49,7 +49,7 @@
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.label2.Location = new System.Drawing.Point(3, 177);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(264, 43);
+            this.label2.Size = new System.Drawing.Size(294, 43);
             this.label2.TabIndex = 2;
             this.label2.Text = "London, UK";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -75,7 +75,7 @@
             this.labelDate.ForeColor = System.Drawing.Color.Yellow;
             this.labelDate.Location = new System.Drawing.Point(3, 119);
             this.labelDate.Name = "labelDate";
-            this.labelDate.Size = new System.Drawing.Size(264, 16);
+            this.labelDate.Size = new System.Drawing.Size(294, 16);
             this.labelDate.TabIndex = 5;
             this.labelDate.Text = "Thursday, May 13 2014";
             this.labelDate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -87,7 +87,7 @@
             this.label5.Dock = System.Windows.Forms.DockStyle.Right;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(174, 56);
+            this.label5.Location = new System.Drawing.Point(204, 56);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(93, 63);
             this.label5.TabIndex = 6;
@@ -115,7 +115,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(270, 220);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(300, 220);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
             // label1
@@ -125,7 +125,7 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Right;
             this.label1.Font = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(135, 0);
+            this.label1.Location = new System.Drawing.Point(165, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(132, 56);
             this.label1.TabIndex = 1;
@@ -142,7 +142,7 @@
             this.labelTime.ForeColor = System.Drawing.Color.White;
             this.labelTime.Location = new System.Drawing.Point(3, 135);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(264, 42);
+            this.labelTime.Size = new System.Drawing.Size(294, 42);
             this.labelTime.TabIndex = 3;
             this.labelTime.Text = "11:54 AM";
             this.labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -150,14 +150,13 @@
             // 
             // Weather
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "Weather";
             this.Padding = new System.Windows.Forms.Padding(10);
-            this.Size = new System.Drawing.Size(290, 240);
+            this.Size = new System.Drawing.Size(320, 240);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

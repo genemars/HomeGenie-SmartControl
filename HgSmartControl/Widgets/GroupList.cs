@@ -22,15 +22,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using HomeGenie.Client.Data;
+using HgSmartControl.Widgets.Items;
+using HgSmartControl.Properties;
 
 namespace HgSmartControl.Widgets
 {
@@ -38,23 +37,36 @@ namespace HgSmartControl.Widgets
     {
         public event EventHandler<int> GroupSelected;
 
+        private List<Group> groups;
+
 
         public GroupList()
         {
             InitializeComponent();
         }
 
+
         public void SetGroups(List<Group> groups)
         {
+            this.groups = groups;
             foreach(Group g in groups)
             {
-                this.listBoxGroups.Items.Add(g.Name);
+                GroupItem item = new GroupItem();
+                item.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+                item.SetGroup(g);
+                item.Clicked += item_Clicked;
+                listPanelItems.Controls.Add(item);
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+
+        private void item_Clicked(object sender, Group e)
         {
-            if (GroupSelected != null) GroupSelected(this, listBoxGroups.SelectedIndex);
+            if (GroupSelected != null)
+            {
+                GroupSelected(this, groups.FindIndex(g => g.Equals(e)));
+            }
         }
+
     }
 }

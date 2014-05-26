@@ -48,7 +48,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33332F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 27F));
             this.tableLayoutPanel1.Controls.Add(this.labelTitle, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelStatus, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.pictureBoxLevel, 1, 3);
@@ -64,7 +64,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(280, 240);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(320, 240);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labelTitle
@@ -73,10 +73,10 @@
             this.tableLayoutPanel1.SetColumnSpan(this.labelTitle, 3);
             this.labelTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelTitle.Font = new System.Drawing.Font("Lucida Sans Unicode", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTitle.Location = new System.Drawing.Point(99, 0);
+            this.labelTitle.Location = new System.Drawing.Point(112, 0);
             this.labelTitle.Margin = new System.Windows.Forms.Padding(0);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(181, 48);
+            this.labelTitle.Size = new System.Drawing.Size(208, 48);
             this.labelTitle.TabIndex = 4;
             this.labelTitle.Text = "Luce Secondaria";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -87,10 +87,10 @@
             this.labelStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelStatus.Font = new System.Drawing.Font("Lucida Sans Unicode", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.labelStatus.Location = new System.Drawing.Point(99, 48);
+            this.labelStatus.Location = new System.Drawing.Point(112, 48);
             this.labelStatus.Margin = new System.Windows.Forms.Padding(0);
             this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(77, 30);
+            this.labelStatus.Size = new System.Drawing.Size(90, 30);
             this.labelStatus.TabIndex = 7;
             this.labelStatus.Text = "75%";
             this.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -103,7 +103,7 @@
             this.pictureBoxLevel.Location = new System.Drawing.Point(23, 98);
             this.pictureBoxLevel.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBoxLevel.Name = "pictureBoxLevel";
-            this.pictureBoxLevel.Size = new System.Drawing.Size(230, 64);
+            this.pictureBoxLevel.Size = new System.Drawing.Size(269, 64);
             this.pictureBoxLevel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxLevel.TabIndex = 9;
             this.pictureBoxLevel.TabStop = false;
@@ -119,7 +119,7 @@
             this.pictureBoxIcon.Margin = new System.Windows.Forms.Padding(0, 10, 10, 0);
             this.pictureBoxIcon.Name = "pictureBoxIcon";
             this.tableLayoutPanel1.SetRowSpan(this.pictureBoxIcon, 2);
-            this.pictureBoxIcon.Size = new System.Drawing.Size(89, 68);
+            this.pictureBoxIcon.Size = new System.Drawing.Size(102, 68);
             this.pictureBoxIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxIcon.TabIndex = 0;
             this.pictureBoxIcon.TabStop = false;
@@ -128,9 +128,9 @@
             // 
             this.pictureBoxClose.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxClose.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxClose.Image")));
-            this.pictureBoxClose.Location = new System.Drawing.Point(102, 205);
+            this.pictureBoxClose.Location = new System.Drawing.Point(115, 205);
             this.pictureBoxClose.Name = "pictureBoxClose";
-            this.pictureBoxClose.Size = new System.Drawing.Size(71, 32);
+            this.pictureBoxClose.Size = new System.Drawing.Size(84, 32);
             this.pictureBoxClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxClose.TabIndex = 10;
             this.pictureBoxClose.TabStop = false;
@@ -138,13 +138,13 @@
             // 
             // Dimmer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.tableLayoutPanel1);
             this.ForeColor = System.Drawing.Color.White;
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "Dimmer";
-            this.Size = new System.Drawing.Size(280, 240);
+            this.Size = new System.Drawing.Size(320, 240);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLevel)).EndInit();

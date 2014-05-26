@@ -22,24 +22,21 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using HomeGenie.Client.Data;
 
-namespace HgSmartControl.Widgets.Tiles
+namespace HgSmartControl.Widgets.Items
 {
-    public partial class SensorTile : TileBase
+    public partial class SensorItem : BaseItem
     {
         private Timer cycleTimer = new Timer();
         private int currentProperty = 0;
 
-        public SensorTile()
+        public SensorItem()
         {
             InitializeComponent();
         }

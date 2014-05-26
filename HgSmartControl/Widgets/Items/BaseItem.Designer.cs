@@ -1,6 +1,6 @@
-﻿namespace HgSmartControl.Widgets.Tiles
+﻿namespace HgSmartControl.Widgets.Items
 {
-    partial class TileBase
+    partial class BaseItem
     {
         /// <summary> 
         /// Variabile di progettazione necessaria.
@@ -30,13 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // TileBase
+            // BaseItem
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Transparent;
             this.ForeColor = System.Drawing.Color.White;
-            this.Name = "TileBase";
+            this.Margin = new System.Windows.Forms.Padding(0);
+            this.Name = "BaseItem";
             this.Load += new System.EventHandler(this.TileBase_Load);
             this.ResumeLayout(false);
 

@@ -22,7 +22,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -44,6 +45,19 @@ namespace HgSmartControl.Widgets
             {
                 action();
             } 
+        }
+
+        public static Image ImageFromBytes(byte[] imageData)
+        {
+            Image image = null;
+            MemoryStream ms = new MemoryStream(imageData);
+            try
+            {
+                image = Image.FromStream(ms);
+            }
+            catch { }
+            ms.Close();
+            return image;
         }
     }
 }

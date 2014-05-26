@@ -22,14 +22,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HgSmartControl.Properties;
+using System.ComponentModel;
 
 namespace HgSmartControl.Controls
 {
@@ -56,17 +54,16 @@ namespace HgSmartControl.Controls
         {
             InitializeComponent();
 
-            this.AutoScroll = false;
-            this.AutoSize = true;
+            Setup();
+        }
 
-            this.ControlAdded += CenterPanel_ControlAdded;
-            this.ControlRemoved += CenterPanel_ControlRemoved;
-            this.Layout += CenterPanel_Layout;
+        public CenterPanel(IContainer container)
+        {
+            container.Add(this);
 
-            this.MouseDown += CenterPanel_MouseDown;
+            InitializeComponent();
 
-            arrowLeft = (Image)Resources.ResourceManager.GetObject("left");
-            arrowRight = (Image)Resources.ResourceManager.GetObject("right");
+            Setup();
         }
 
         public override string Text
@@ -97,15 +94,29 @@ namespace HgSmartControl.Controls
             this.Invalidate();
         }
 
+        private void Setup()
+        {
+            this.AutoScroll = false;
+            this.AutoSize = true;
+
+            this.ControlAdded += CenterPanel_ControlAdded;
+            this.ControlRemoved += CenterPanel_ControlRemoved;
+            this.Layout += CenterPanel_Layout;
+
+            this.MouseDown += CenterPanel_MouseDown;
+
+            arrowLeft = (Image)Resources.ResourceManager.GetObject("left");
+            arrowRight = (Image)Resources.ResourceManager.GetObject("right");
+        }
 
         private void CenterPanel_MouseDown(object sender, MouseEventArgs e)
         {
             // centered Y (this.ClientRectangle.Height / 2) - (arrowLeft.Height / 2)
-            if ((currentPage > 0) && (e.X > 0 && e.X < arrowLeft.Width && e.Y > this.Height - bottomBarHeight && e.Y < this.Height))
+            if ((currentPage > 0) && (e.X > 0 && e.X < arrowLeft.Width && e.Y > this.ClientRectangle.Height - bottomBarHeight && e.Y < this.ClientRectangle.Height))
             {
                 ShowPrevious();
             }
-            else if ((currentPage < totalPages - 1) && (e.X > this.ClientRectangle.Width - arrowRight.Width && e.X < this.ClientRectangle.Width && e.Y > this.Height - bottomBarHeight && e.Y < this.Height))
+            else if ((currentPage < totalPages - 1) && (e.X > this.ClientRectangle.Width - arrowRight.Width && e.X < this.ClientRectangle.Width && e.Y > this.ClientRectangle.Height - bottomBarHeight && e.Y < this.ClientRectangle.Height))
             {
                 ShowNext();
             }
@@ -123,21 +134,21 @@ namespace HgSmartControl.Controls
             // Draw Arrows as needed
             if (currentPage > 0)
             {
-                e.Graphics.DrawImage(arrowLeft, 0, this.Height - bottomBarHeight, arrowLeft.Width, arrowLeft.Height);
+                e.Graphics.DrawImage(arrowLeft, 0, this.ClientRectangle.Height - bottomBarHeight + ((bottomBarHeight - arrowLeft.Height) / 2), arrowLeft.Width, arrowLeft.Height);
             }
             if (currentPage < totalPages - 1)
             {
-                e.Graphics.DrawImage(arrowRight, this.Width - arrowRight.Width, this.Height - bottomBarHeight, arrowRight.Width, arrowRight.Height);
+                e.Graphics.DrawImage(arrowRight, this.ClientRectangle.Width - arrowRight.Width, this.ClientRectangle.Height - bottomBarHeight + ((bottomBarHeight - arrowRight.Height) / 2), arrowRight.Width, arrowRight.Height);
             }
             //
             // Draw Title Text
             SizeF titleSize = e.Graphics.MeasureString(title, this.Font);
             SolidBrush drawBrush = new SolidBrush(this.ForeColor);
-            PointF centerPoint = new PointF((this.Width - titleSize.Width) / 2F, (this.Height - bottomBarHeight) + ((bottomBarHeight - titleSize.Height) / 2F));
+            PointF centerPoint = new PointF((this.ClientRectangle.Width - titleSize.Width) / 2F, (this.ClientRectangle.Height - bottomBarHeight) + ((bottomBarHeight - titleSize.Height) / 2F));
             e.Graphics.DrawString(title, this.Font, drawBrush, centerPoint);
             //
-            // Draw boder line
-            e.Graphics.DrawLine(new Pen(Color.Gray), new Point(0, this.Height - bottomBarHeight - 1), new Point(this.Width - 1, this.Height - bottomBarHeight - 1));
+            // Draw boder background
+            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(10, Color.Cyan)), 0, this.ClientRectangle.Height - bottomBarHeight - 1, this.ClientRectangle.Width - 1, bottomBarHeight);
         }
  
         void CenterPanel_ControlRemoved(object sender, ControlEventArgs e)

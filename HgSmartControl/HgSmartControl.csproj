@@ -11,6 +11,7 @@
     <AssemblyName>HgSmartControl</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EventSource4Net, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -63,6 +66,12 @@
     </Compile>
     <Compile Include="Controls\CenterPanel.Designer.cs">
       <DependentUpon>CenterPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ListPanel.Designer.cs">
+      <DependentUpon>ListPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartControl.cs">
       <SubType>Form</SubType>
@@ -108,31 +117,43 @@
     <Compile Include="Widgets\GroupView.Designer.cs">
       <DependentUpon>GroupView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Widgets\Tiles\DoorWindowTile.cs">
+    <Compile Include="Widgets\Items\DoorWindowItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Widgets\Tiles\DoorWindowTile.Designer.cs">
-      <DependentUpon>DoorWindowTile.cs</DependentUpon>
+    <Compile Include="Widgets\Items\DoorWindowItem.Designer.cs">
+      <DependentUpon>DoorWindowItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Widgets\Tiles\GenericTile.cs">
+    <Compile Include="Widgets\Items\GenericItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Widgets\Tiles\GenericTile.Designer.cs">
-      <DependentUpon>GenericTile.cs</DependentUpon>
+    <Compile Include="Widgets\Items\GenericItem.Designer.cs">
+      <DependentUpon>GenericItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Widgets\Tiles\SensorTile.cs">
+    <Compile Include="Widgets\Items\GroupItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Widgets\Tiles\SensorTile.Designer.cs">
-      <DependentUpon>SensorTile.cs</DependentUpon>
+    <Compile Include="Widgets\Items\GroupItem.Designer.cs">
+      <DependentUpon>GroupItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Widgets\Tiles\TileBase.cs">
+    <Compile Include="Widgets\Items\SensorItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Widgets\Tiles\TileBase.Designer.cs">
-      <DependentUpon>TileBase.cs</DependentUpon>
+    <Compile Include="Widgets\Items\SensorItem.Designer.cs">
+      <DependentUpon>SensorItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Items\BaseItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\Items\BaseItem.Designer.cs">
+      <DependentUpon>BaseItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Widgets\UiHelper.cs" />
+    <Compile Include="Widgets\ValueIndicator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\ValueIndicator.Designer.cs">
+      <DependentUpon>ValueIndicator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Widgets\Weather.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -173,17 +194,23 @@
     <EmbeddedResource Include="Widgets\GroupView.resx">
       <DependentUpon>GroupView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Widgets\Tiles\DoorWindowTile.resx">
-      <DependentUpon>DoorWindowTile.cs</DependentUpon>
+    <EmbeddedResource Include="Widgets\Items\DoorWindowItem.resx">
+      <DependentUpon>DoorWindowItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Widgets\Tiles\GenericTile.resx">
-      <DependentUpon>GenericTile.cs</DependentUpon>
+    <EmbeddedResource Include="Widgets\Items\GenericItem.resx">
+      <DependentUpon>GenericItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Widgets\Tiles\SensorTile.resx">
-      <DependentUpon>SensorTile.cs</DependentUpon>
+    <EmbeddedResource Include="Widgets\Items\GroupItem.resx">
+      <DependentUpon>GroupItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Widgets\Tiles\TileBase.resx">
-      <DependentUpon>TileBase.cs</DependentUpon>
+    <EmbeddedResource Include="Widgets\Items\SensorItem.resx">
+      <DependentUpon>SensorItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Widgets\Items\BaseItem.resx">
+      <DependentUpon>BaseItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Widgets\ValueIndicator.resx">
+      <DependentUpon>ValueIndicator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Widgets\Weather.resx">
       <DependentUpon>Weather.cs</DependentUpon>
@@ -205,6 +232,14 @@
     <Content Include="Images\Weather\weather_day_chancerain.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\plug.png" />
+    <None Include="Resources\luminance.png" />
+    <None Include="Resources\humidity.png" />
+    <None Include="Resources\energy.png" />
+    <None Include="Resources\door.png" />
+    <None Include="Resources\bulb.png" />
+    <None Include="Resources\window.png" />
+    <None Include="Resources\temperature.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HomeGenie-Net-ClientLib\HomeGenie-Net-ClientLib.csproj">

@@ -25,19 +25,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using HomeGenie.Client.Data;
-using HgSmartControl.Widgets.Tiles;
+using HgSmartControl.Widgets.Items;
 
 namespace HgSmartControl.Widgets
 {
     public partial class GroupView : UserControl
     {
-        public EventHandler<TileBase> ItemClicked;
+        public EventHandler<BaseItem> ItemClicked;
         public EventHandler GroupsButtonClicked;
 
 
@@ -66,7 +64,7 @@ namespace HgSmartControl.Widgets
             int count = 0;
             foreach (Module m in controlModules)
             {
-                TileBase moduleTile = GetTileForModule(m);
+                BaseItem moduleTile = GetTileForModule(m);
                 moduleTile.Clicked += (object sender, Module mod) =>
                 {
                     if (ItemClicked != null) ItemClicked(this, moduleTile);
@@ -77,9 +75,9 @@ namespace HgSmartControl.Widgets
             }
         }
 
-        private TileBase GetTileForModule(Module m)
+        private BaseItem GetTileForModule(Module m)
         {
-            TileBase tile = null;
+            BaseItem tile = null;
             ModuleParameter widget = m.GetProperty("Widget.DisplayModule");
             if (widget != null && !String.IsNullOrEmpty(widget.Value))
             {
@@ -87,13 +85,13 @@ namespace HgSmartControl.Widgets
                 {
                     case "homegenie/generic/sensor":
                     case "homegenie/generic/temperature":
-                        tile = new SensorTile();
+                        tile = new SensorItem();
                         break;
                     case "homegenie/generic/doorwindow":
-                        tile = new DoorWindowTile();
+                        tile = new DoorWindowItem();
                         break;
                     default:
-                        tile = new GenericTile();
+                        tile = new GenericItem();
                         break;
                 }
             }
@@ -103,13 +101,13 @@ namespace HgSmartControl.Widgets
                 {
                     case "Sensor":
                     case "Temperature":
-                        tile = new SensorTile();
+                        tile = new SensorItem();
                         break;
                     case "DoorWindow":
-                        tile = new DoorWindowTile();
+                        tile = new DoorWindowItem();
                         break;
                     default:
-                        tile = new GenericTile();
+                        tile = new GenericItem();
                         break;
                 }
             }

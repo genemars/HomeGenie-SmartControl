@@ -31,20 +31,12 @@ namespace HomeGenie.Client
 	public static class Utility
 	{
 		private static Dictionary<string, byte[]> imageCache = new Dictionary<string, byte[]> ();
-		//public static void DownloadImage(string url, Action<Bitmap> callbck)
-		//{
-		//    WebClient client = new WebClient();
-		//    client.DownloadDataAsync(new Uri(url), null);
-		//}
 
 		public static void DownloadImage (string url, NetworkCredential credential, Action<byte[]> callback)
 		{
 			if (imageCache.ContainsKey (url)) {
 				callback (imageCache [url]);
 			} else {
-				//Thread t = new Thread(() =>
-				//{
-				//    Monitor.Enter(imageCache);
 				try {
 					WebRequest req = WebRequest.Create (url);
 					req.Credentials = credential;
@@ -56,9 +48,6 @@ namespace HomeGenie.Client
 					stream.Close ();
 				} catch {
 				}
-				//    Monitor.Exit(imageCache);
-				//});
-				//t.Start();
 			}
 		}
 

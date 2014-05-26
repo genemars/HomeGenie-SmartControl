@@ -22,12 +22,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using HomeGenie.Client;
@@ -35,7 +32,6 @@ using HomeGenie.Client.Data;
 
 using OxyPlot;
 using OxyPlot.Series;
-using System.IO;
 
 namespace HgSmartControl.Widgets
 {
@@ -83,9 +79,7 @@ namespace HgSmartControl.Widgets
             module.GetImage((img) =>
             {
                 UiHelper.SafeInvoke(pictureBoxIcon, () => {
-                    MemoryStream ms = new MemoryStream(img);
-                    this.pictureBoxIcon.Image = Image.FromStream(ms);
-                    ms.Close();
+                    this.pictureBoxIcon.Image = UiHelper.ImageFromBytes(img);
                 });
             });
         }

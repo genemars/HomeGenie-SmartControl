@@ -22,20 +22,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
 
-namespace HgSmartControl.Widgets.Tiles
+namespace HgSmartControl.Widgets.Items
 {
-    public partial class DoorWindowTile : TileBase
+    public partial class DoorWindowItem : BaseItem
     {
-        public DoorWindowTile()
+        public DoorWindowItem()
         {
             InitializeComponent();
         }
@@ -65,9 +61,7 @@ namespace HgSmartControl.Widgets.Tiles
             {
                 UiHelper.SafeInvoke(pictureBoxIcon, () =>
                 {
-                    MemoryStream ms = new MemoryStream(img);
-                    this.pictureBoxIcon.Image = Image.FromStream(ms);
-                    ms.Close();
+                    this.pictureBoxIcon.Image = UiHelper.ImageFromBytes(img);
                 });
             });
         }

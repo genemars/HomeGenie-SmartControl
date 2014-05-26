@@ -22,27 +22,23 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
-using System.IO;
 using System.Threading;
 
 using HomeGenie.Client;
 using HomeGenie.Client.Data;
 
-namespace HgSmartControl.Widgets.Tiles
+namespace HgSmartControl.Widgets.Items
 {
-    public partial class GenericTile : TileBase
+    public partial class GenericItem : BaseItem
     {
         Thread refreshDelay;
 
-        public GenericTile() : base()
+        public GenericItem() : base()
         {
             InitializeComponent();
         }
@@ -71,9 +67,7 @@ namespace HgSmartControl.Widgets.Tiles
             module.GetImage((img) =>
             {
                 UiHelper.SafeInvoke(pictureBoxIcon, () => {
-                    MemoryStream ms = new MemoryStream(img);
-                    this.pictureBoxIcon.Image = Image.FromStream(ms);
-                    ms.Close();
+                    this.pictureBoxIcon.Image = UiHelper.ImageFromBytes(img);
                 });
             });
         }

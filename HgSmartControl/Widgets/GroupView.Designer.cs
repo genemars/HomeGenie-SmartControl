@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.centerPanelView = new HgSmartControl.Controls.CenterPanel();
+            this.components = new System.ComponentModel.Container();
+            this.centerPanelView = new HgSmartControl.Controls.CenterPanel(this.components);
             this.SuspendLayout();
             // 
             // centerPanelView
@@ -40,20 +41,20 @@
             this.centerPanelView.Location = new System.Drawing.Point(0, 0);
             this.centerPanelView.Margin = new System.Windows.Forms.Padding(0);
             this.centerPanelView.Name = "centerPanelView";
-            this.centerPanelView.Size = new System.Drawing.Size(300, 240);
+            this.centerPanelView.Size = new System.Drawing.Size(320, 240);
             this.centerPanelView.TabIndex = 13;
             this.centerPanelView.Text = "Untitled";
             this.centerPanelView.TextClicked += new System.EventHandler<string>(this.centerPanelView_TextClicked);
             // 
             // GroupView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.centerPanelView);
             this.ForeColor = System.Drawing.Color.White;
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "GroupView";
-            this.Size = new System.Drawing.Size(300, 240);
+            this.Size = new System.Drawing.Size(320, 240);
             this.ResumeLayout(false);
             this.PerformLayout();
 

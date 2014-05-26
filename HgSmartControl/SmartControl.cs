@@ -20,18 +20,17 @@
  *     Project Homepage: http://homegenie.it
  */
 
-using HomeGenie.Client;
-using HomeGenie.Client.Data;
-using HgSmartControl.Widgets;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using HomeGenie.Client;
+using HomeGenie.Client.Data;
+
+using HgSmartControl.Widgets;
 
 namespace HgSmartControl
 {
@@ -45,6 +44,7 @@ namespace HgSmartControl
         private Timer widgetCycle = new Timer();
         private UserControl currentWidget = null;
 
+        private GroupList groupList;
         private Weather weatherWidget = new Weather();
         private List<GroupView> groupWidgets = new List<GroupView>();
 
@@ -53,6 +53,15 @@ namespace HgSmartControl
         public SmartControl()
         {
             InitializeComponent();
+
+            if (Environment.OSVersion.Platform.ToString().StartsWith("Win"))
+            {
+                this.Size = new Size(320, 240);
+            }
+
+            groupList = new GroupList();
+            groupList.Dock = DockStyle.Fill;
+            groupList.GroupSelected += groupList_GroupSelected;
 
             widgetCycle.Interval = 5000;
             widgetCycle.Tick += widgetCycle_Tick;
@@ -71,6 +80,7 @@ namespace HgSmartControl
                 foreach (Group g in hg.Groups)
                 {
                     GroupView widget = new GroupView();
+                    widget.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
                     widget.ItemClicked = (sender, tile) =>
                     {
                         ShowModuleScreen(tile.Module);
@@ -78,14 +88,28 @@ namespace HgSmartControl
                     widget.SetGroup(g);
                     widget.GroupsButtonClicked += (sender, args) =>
                     {
-                        this.Controls.Add(groupList1);
-                        this.Controls.SetChildIndex(groupList1, 0);
-                        groupList1.Invalidate();
+                        this.Controls.Add(groupList);
+                        this.Controls.SetChildIndex(groupList, 0);
+                        groupList.Invalidate();
                     };
                     groupWidgets.Add(widget);
                 }
 
-                groupList1.SetGroups(hg.Groups);
+                groupList.SetGroups(hg.Groups);
+
+                System.Threading.Thread t = new System.Threading.Thread(() =>
+                {
+                    System.Threading.Thread.Sleep(10000);
+                    UiHelper.SafeInvoke(this, () =>
+                    {
+                        if (currentWidget != null)
+                        {
+                            this.Controls.Remove(currentWidget);
+                        }
+                        this.Controls.Add(groupList);
+                    });
+                });
+                t.Start();
 
             };
             hg.Connect();
@@ -129,9 +153,9 @@ namespace HgSmartControl
             this.Controls.Add(currentWidget);
         }
 
-        private void groupList1_GroupSelected(object sender, int e)
+        private void groupList_GroupSelected(object sender, int e)
         {
-            this.Controls.Remove(groupList1);
+            this.Controls.Remove(groupList);
             if (currentWidget != null)
             {
                 this.Controls.Remove(currentWidget);

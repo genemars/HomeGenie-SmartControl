@@ -37,7 +37,7 @@
             this.plot1.Location = new System.Drawing.Point(0, 0);
             this.plot1.Name = "plot1";
             this.plot1.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.plot1.Size = new System.Drawing.Size(320, 240);
+            this.plot1.Size = new System.Drawing.Size(280, 246);
             this.plot1.TabIndex = 0;
             this.plot1.Text = "plot1";
             this.plot1.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
@@ -47,13 +47,13 @@
             // 
             // GraphPlotter
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.plot1);
             this.ForeColor = System.Drawing.Color.White;
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "GraphPlotter";
-            this.Size = new System.Drawing.Size(320, 240);
+            this.Size = new System.Drawing.Size(280, 246);
             this.Load += new System.EventHandler(this.GraphPlotter_Load);
             this.ResumeLayout(false);
 

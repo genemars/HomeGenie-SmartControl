@@ -28,30 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupList1 = new HgSmartControl.Widgets.GroupList();
             this.SuspendLayout();
-            // 
-            // groupList1
-            // 
-            this.groupList1.BackColor = System.Drawing.Color.Black;
-            this.groupList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupList1.ForeColor = System.Drawing.Color.White;
-            this.groupList1.Location = new System.Drawing.Point(0, 0);
-            this.groupList1.Name = "groupList1";
-            this.groupList1.Size = new System.Drawing.Size(280, 246);
-            this.groupList1.TabIndex = 0;
-            this.groupList1.GroupSelected += new System.EventHandler<int>(this.groupList1_GroupSelected);
             // 
             // SmartControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(280, 246);
+            this.ClientSize = new System.Drawing.Size(326, 246);
             this.ControlBox = false;
-            this.Controls.Add(this.groupList1);
+            this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximumSize = new System.Drawing.Size(326, 246);
+            this.MinimumSize = new System.Drawing.Size(320, 240);
             this.Name = "SmartControl";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -64,7 +53,6 @@
 
         #endregion
 
-        private Widgets.GroupList groupList1;
 
 
 
