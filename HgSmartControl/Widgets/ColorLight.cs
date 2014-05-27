@@ -30,6 +30,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HomeGenie.Client.Data;
+using HgSmartControl.Controls;
 
 namespace HgSmartControl.Widgets
 {
@@ -43,7 +44,7 @@ namespace HgSmartControl.Widgets
         {
             InitializeComponent();
 
-            svColorGradient.ColorSelected += svColorGradient_ColorSelected;
+            levelControlSlider.ButtonClicked += svColorGradient_ButtonClicked;
         }
 
         // set data context
@@ -72,6 +73,7 @@ namespace HgSmartControl.Widgets
         {
             labelTitle.Text = module.Name;
             labelStatus.Text = module.GetStatusText();
+            levelControlSlider.Level = module.GetLevel();
             module.GetImage((img) =>
             {
                 UiHelper.SafeInvoke(pictureBoxIcon, () =>
@@ -81,12 +83,17 @@ namespace HgSmartControl.Widgets
             });
         }
 
-        private void svColorGradient_ColorSelected(object sender, Color e)
+        private void svColorGradient_ButtonClicked(object sender, LevelControlButton button)
         {
-            panelColor.BackColor = e;
-            dynamic hsv = UiHelper.RgbToHsv(e);
-            string command = "Control.ColorHsb/" + (hsv.H / 360F).ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + (hsv.S / 100F).ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + (hsv.V / 100F).ToString(System.Globalization.CultureInfo.InvariantCulture);
-            module.ExecuteCommand(command);
+            switch (button)
+            {
+                case LevelControlButton.On:
+                    module.ExecuteCommand("Control.On");
+                    break;
+                case LevelControlButton.Off:
+                    module.ExecuteCommand("Control.Off");
+                    break;
+            }
         }
 
         private void pictureBoxHue_MouseAction(object sender, MouseEventArgs e)
@@ -97,7 +104,7 @@ namespace HgSmartControl.Widgets
                 try
                 {
                     Color c = bmp.GetPixel(e.X, bmp.Height / 2);
-                    svColorGradient.SvColor = c;
+                    levelControlSlider.LevelColor = c;
                 }
                 catch { }
             }
@@ -212,6 +219,25 @@ namespace HgSmartControl.Widgets
         private void pictureBoxClose_Click(object sender, EventArgs e)
         {
             if (CloseButtonClicked != null) CloseButtonClicked(sender, e);
+        }
+
+        private void levelControlSlider_LevelChanged(object sender, double level)
+        {
+            panelColor.BackColor = levelControlSlider.LevelColor;
+            dynamic hsv = UiHelper.RgbToHsv(levelControlSlider.LevelColor);
+            if (level <= 0.5)
+            {
+                hsv.V = level * 200F;
+                hsv.S = 100F;
+            }
+            else
+            {
+                hsv.V = 100F;
+                hsv.S = (1F - ((level - 0.5F) * 2F)) * 100F;
+            }
+            string command = "Control.ColorHsb/" + (hsv.H / 360F).ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + (hsv.S / 100F).ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + (hsv.V / 100F).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            module.ExecuteCommand(command);
+
         }
 
     }

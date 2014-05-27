@@ -59,6 +59,17 @@ namespace HomeGenie.Client.Data
 			});
 		}
 
+        public double GetLevel()
+        {
+            double level = 0;
+            ModuleParameter levelProperty = GetProperty("Status.Level");
+            if (levelProperty != null && !String.IsNullOrEmpty(levelProperty.Value))
+            {
+                level = levelProperty.DecimalValue;
+            }
+            return level;
+        }
+
 		public string GetStatusText ()
 		{
 			string status = "";

@@ -32,6 +32,7 @@ using HomeGenie.Client.Data;
 
 using OxyPlot;
 using OxyPlot.Series;
+using HgSmartControl.Controls;
 
 namespace HgSmartControl.Widgets
 {
@@ -76,6 +77,7 @@ namespace HgSmartControl.Widgets
         {
             labelTitle.Text = module.Name;
             labelStatus.Text = module.GetStatusText();
+            levelControlSlider.Level = module.GetLevel();
             module.GetImage((img) =>
             {
                 UiHelper.SafeInvoke(pictureBoxIcon, () => {
@@ -84,52 +86,37 @@ namespace HgSmartControl.Widgets
             });
         }
 
-        private void pictureBoxLevel_MouseMove(object sender, MouseEventArgs e)
-        {
-            double px = (100D / (double)pictureBoxLevel.Width) * (double)e.X;
-            double dimFactor = 100D / (buttonOnStart - buttonOffEnd);
-
-            if (px <= buttonOffEnd)
-            {
-                currentLevel = 0;
-            }
-            else if (px >= buttonOnStart)
-            {
-                currentLevel = 1;
-            }
-            else
-            {
-                double dim = 100D - ((buttonOnStart - px) * dimFactor);
-                currentLevel = dim / 100D;
-            }
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                //Console.WriteLine(currentLevel);
-                labelStatus.Text = Math.Round(currentLevel * 100D, 0) + "%";
-            }
-        }
-
-        private void pictureBoxLevel_MouseUp(object sender, MouseEventArgs e)
-        {
-            labelStatus.Text = Math.Round(currentLevel * 100D, 0) + "%";
-            
-            if (currentLevel == 1D)
-            {
-                module.On();
-            }
-            else if (currentLevel == 0)
-            {
-                module.Off();
-            }
-            else
-            {
-                module.SetLevel((int)Math.Round(currentLevel * 100D, 0));
-            }
-        }
-
         private void pictureBoxClose_Click(object sender, EventArgs e)
         {
             if (CloseButtonClicked != null) CloseButtonClicked(sender, e);
+        }
+
+        private void pictureBoxLevel_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void levelControlSlider_ButtonClicked(object sender, LevelControlButton button)
+        {
+            switch (button)
+            {
+                case LevelControlButton.On:
+                    module.ExecuteCommand("Control.On");
+                    break;
+                case LevelControlButton.Off:
+                    module.ExecuteCommand("Control.Off");
+                    break;
+            }
+        }
+
+        private void levelControlSlider_LevelChanged(object sender, double level)
+        {
+            module.SetLevel((int)Math.Round(level * 100D, 0));
+        }
+
+        private void levelControlSlider_LevelChanging(object sender, double level)
+        {
+            labelStatus.Text = ((int)Math.Round(level * 100D, 0)).ToString();
         }
 
     }

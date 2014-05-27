@@ -67,11 +67,11 @@
     <Compile Include="Controls\CenterPanel.Designer.cs">
       <DependentUpon>CenterPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SvGradient.cs">
+    <Compile Include="Controls\LevelControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SvGradient.Designer.cs">
-      <DependentUpon>SvGradient.cs</DependentUpon>
+    <Compile Include="Controls\LevelControl.Designer.cs">
+      <DependentUpon>LevelControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ListPanel.cs">
       <SubType>Component</SubType>
@@ -230,7 +230,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\huebar.png" />
-    <None Include="Resources\gradient.png" />
     <None Include="Resources\plug.png" />
     <None Include="Resources\luminance.png" />
     <None Include="Resources\humidity.png" />
