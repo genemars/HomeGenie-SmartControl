@@ -46,6 +46,7 @@ namespace HgSmartControl.Controls
         private Rectangle buttonOn = new Rectangle();
 
         private double level = 0;
+        private bool enableSlider = true;
 
         private Color color = Color.Red;
 
@@ -61,7 +62,7 @@ namespace HgSmartControl.Controls
 
         private void LevelControl_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left && !buttonOn.Contains(e.Location) && !buttonOff.Contains(e.Location))
+            if (enableSlider && e.Button == System.Windows.Forms.MouseButtons.Left && !buttonOn.Contains(e.Location) && !buttonOff.Contains(e.Location))
             {
                 double totalLength = buttonOn.X - (buttonOff.X + buttonOff.Width);
                 level = ((double)(e.X - (buttonOff.X + buttonOff.Width)) / totalLength);
@@ -83,7 +84,7 @@ namespace HgSmartControl.Controls
             {
                 if (ButtonClicked != null) ButtonClicked(this, LevelControlButton.Off);
             }
-            else
+            else if (enableSlider)
             {
                 double totalLength = buttonOn.X - (buttonOff.X + buttonOff.Width);
                 level = ((double)(e.X - (buttonOff.X + buttonOff.Width)) / totalLength);
@@ -93,6 +94,12 @@ namespace HgSmartControl.Controls
                     LevelChanged(this, level);
                 }
             }
+        }
+
+        public bool EnableSlider
+        {
+            get { return enableSlider; }
+            set { enableSlider = value; }
         }
 
         public double Level
@@ -123,27 +130,35 @@ namespace HgSmartControl.Controls
             int buttonDiameter = this.ClientRectangle.Height;
             Rectangle rc1 = new Rectangle(buttonDiameter / 2, 6, (this.ClientRectangle.Width / 2) - (buttonDiameter / 2), this.ClientRectangle.Height - 12);
             Rectangle rc2 = new Rectangle(this.ClientRectangle.Width / 2, 6, (this.ClientRectangle.Width / 2) - (buttonDiameter / 2), this.ClientRectangle.Height - 12);
-            LinearGradientBrush brush1 = new LinearGradientBrush(rc1, Color.Black, color, 0F);
-            g.FillRectangle(brush1, rc1);
-            LinearGradientBrush brush2 = new LinearGradientBrush(rc2, color, Color.White, 0F);
-            g.FillRectangle(brush2, rc2);
-            //
+            if (enableSlider)
+            {
+                // level gradient
+                LinearGradientBrush brush1 = new LinearGradientBrush(rc1, Color.Black, color, 0F);
+                g.FillRectangle(brush1, rc1);
+                LinearGradientBrush brush2 = new LinearGradientBrush(rc2, color, Color.White, 0F);
+                g.FillRectangle(brush2, rc2);
+            }
+            else
+            {
+                g.FillRectangle(new SolidBrush(Color.FromArgb(100, level == 0 ? Color.Gray : Color.LightGreen)), rc1);
+                g.FillRectangle(new SolidBrush(Color.FromArgb(100, level == 0 ? Color.Gray : Color.LightGreen)), rc2);
+            }
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            //
             // off button
             buttonOff = new Rectangle(0, 0, buttonDiameter, buttonDiameter);
-            g.FillEllipse(new SolidBrush(Color.FromArgb(100, Color.White)), buttonOff);
+            g.FillEllipse(new SolidBrush(Color.FromArgb(255, Color.Gray)), buttonOff);
             g.DrawEllipse(new Pen(Color.Black, 6), new Rectangle((buttonDiameter / 2) - (buttonDiameter / 6), (buttonDiameter / 2) - (buttonDiameter / 6), (buttonDiameter / 3) + 1, (buttonDiameter / 3) + 1));
-            //
             // on button
             buttonOn = new Rectangle(this.ClientRectangle.Width - buttonDiameter, 0, buttonDiameter, buttonDiameter);
             g.FillEllipse(new SolidBrush(Color.FromArgb(255, Color.White)), buttonOn);
             g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(this.ClientRectangle.Width - (buttonDiameter / 2) - (buttonDiameter / 10), (buttonDiameter / 2) - (buttonDiameter / 6), (buttonDiameter / 5), (buttonDiameter / 3) + 1));
-            //
-            // level bar
-            double totalLength = buttonOn.X - (buttonOff.X + buttonOff.Width);
-            Rectangle levelBar = new Rectangle(buttonOff.X + buttonOff.Width + (int)(level * totalLength) - 3, 0, 6, this.ClientRectangle.Height);
-            g.FillRectangle(new SolidBrush(Color.FromArgb(180, Color.White)), levelBar);
+            if (enableSlider)
+            {
+                // level bar
+                double totalLength = buttonOn.X - (buttonOff.X + buttonOff.Width);
+                Rectangle levelBar = new Rectangle(buttonOff.X + buttonOff.Width + (int)(level * totalLength) - 3, 0, 6, this.ClientRectangle.Height);
+                g.FillRectangle(new SolidBrush(Color.FromArgb(180, Color.White)), levelBar);
+            }
         }
     }
 }

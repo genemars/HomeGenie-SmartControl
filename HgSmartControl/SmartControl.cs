@@ -124,6 +124,27 @@ namespace HgSmartControl
             {
                 switch (widgetProperty.Value)
                 {
+                    case "homegenie/generic/light":
+                    case "homegenie/generic/switch":
+                        widget = new Switch();
+                        (widget as Switch).CloseButtonClicked += (sender, args) =>
+                        {
+                            this.Controls.Remove(widget);
+                            this.Controls.Add(currentWidget);
+                            widgetCycle.Start();
+                        };
+                        (widget as Switch).Module = m;
+                        break;
+                    case "homegenie/generic/dimmer":
+                        widget = new Dimmer();
+                        (widget as Dimmer).CloseButtonClicked += (sender, args) =>
+                        {
+                            this.Controls.Remove(widget);
+                            this.Controls.Add(currentWidget);
+                            widgetCycle.Start();
+                        };
+                        (widget as Dimmer).Module = m;
+                        break;
                     case "homegenie/generic/colorlight":
                         widget = new ColorLight();
                         (widget as ColorLight).CloseButtonClicked += (sender, args) =>
@@ -151,6 +172,17 @@ namespace HgSmartControl
                         widgetCycle.Start();
                     };
                     (widget as Dimmer).Module = m;
+                }
+                else if (m.DeviceType == "Switch")
+                {
+                    widget = new Switch();
+                    (widget as Switch).CloseButtonClicked += (sender, args) =>
+                    {
+                        this.Controls.Remove(widget);
+                        this.Controls.Add(currentWidget);
+                        widgetCycle.Start();
+                    };
+                    (widget as Switch).Module = m;
                 }
             }
             //

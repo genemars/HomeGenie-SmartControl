@@ -35,7 +35,6 @@
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.labelStatus = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
-            this.panelColor = new System.Windows.Forms.Panel();
             this.levelControlSlider = new HgSmartControl.Controls.LevelControl();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
@@ -56,7 +55,6 @@
             this.tableLayoutPanel1.Controls.Add(this.pictureBoxClose, 2, 4);
             this.tableLayoutPanel1.Controls.Add(this.labelStatus, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelTitle, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panelColor, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.levelControlSlider, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -138,18 +136,10 @@
             this.labelTitle.Text = "Color Light";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // panelColor
-            // 
-            this.panelColor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelColor.Location = new System.Drawing.Point(207, 65);
-            this.panelColor.Margin = new System.Windows.Forms.Padding(15);
-            this.panelColor.Name = "panelColor";
-            this.panelColor.Size = new System.Drawing.Size(34, 20);
-            this.panelColor.TabIndex = 14;
-            // 
             // levelControlSlider
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.levelControlSlider, 5);
+            this.levelControlSlider.Level = 0D;
             this.levelControlSlider.LevelColor = System.Drawing.Color.Red;
             this.levelControlSlider.Location = new System.Drawing.Point(35, 100);
             this.levelControlSlider.Margin = new System.Windows.Forms.Padding(35, 0, 35, 1);
@@ -186,6 +176,5 @@
         private System.Windows.Forms.PictureBox pictureBoxClose;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.Label labelTitle;
-        private System.Windows.Forms.Panel panelColor;
     }
 }

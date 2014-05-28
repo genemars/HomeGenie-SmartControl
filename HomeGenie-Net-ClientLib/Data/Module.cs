@@ -62,7 +62,7 @@ namespace HomeGenie.Client.Data
         public double GetLevel()
         {
             double level = 0;
-            ModuleParameter levelProperty = GetProperty("Status.Level");
+            var levelProperty = GetProperty("Status.Level");
             if (levelProperty != null && !String.IsNullOrEmpty(levelProperty.Value))
             {
                 level = levelProperty.DecimalValue;
@@ -73,7 +73,7 @@ namespace HomeGenie.Client.Data
 		public string GetStatusText ()
 		{
 			string status = "";
-			ModuleParameter levelProperty = GetProperty ("Status.Level");
+			var levelProperty = GetProperty ("Status.Level");
 			if (levelProperty != null && !String.IsNullOrEmpty (levelProperty.Value)) {
 				int level = (int)Math.Round (levelProperty.DecimalValue * 100D, 0);
 				if (level == 0) {
@@ -87,7 +87,7 @@ namespace HomeGenie.Client.Data
             
 			switch (this.DeviceType) {
 			case "DoorWindow":
-				ModuleParameter doorProperty = GetProperty ("Sensor.DoorWindow");
+				var doorProperty = GetProperty ("Sensor.DoorWindow");
 				if (doorProperty != null && !String.IsNullOrEmpty (doorProperty.Value)) {
 					if (doorProperty.DecimalValue == 0) {
 						status = "CLOSED";
@@ -106,9 +106,9 @@ namespace HomeGenie.Client.Data
 		{
 			string image = "";
 
-			ModuleParameter levelProperty = GetProperty ("Status.Level");
-			ModuleParameter iconProperty = GetProperty ("Widget.DisplayIcon");
-			ModuleParameter widgetProperty = GetProperty ("Widget.DisplayWidget");
+			var levelProperty = GetProperty ("Status.Level");
+			var iconProperty = GetProperty ("Widget.DisplayIcon");
+			var widgetProperty = GetProperty ("Widget.DisplayWidget");
             
 			if (iconProperty != null && !String.IsNullOrEmpty (iconProperty.Value)) {
 				image = iconProperty.Value;
@@ -175,8 +175,7 @@ namespace HomeGenie.Client.Data
 
 		public ModuleParameter GetProperty (string name)
 		{
-			ModuleParameter property = null;
-			property = Properties.Find (p => p.Name == name);
+			var property = Properties.Find (p => p.Name == name);
 			return property;
 		}
 

@@ -73,7 +73,18 @@ namespace HgSmartControl.Widgets
         {
             labelTitle.Text = module.Name;
             labelStatus.Text = module.GetStatusText();
-            levelControlSlider.Level = module.GetLevel();
+            //
+            var hsbParameter = module.GetProperty("Status.ColorHsb");
+            if (hsbParameter != null)
+            {
+                string[] hsbValues = hsbParameter.Value.Split(',');
+                double h = 0, s = 0, v = 0;
+                double.TryParse(hsbValues[0], System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.InvariantCulture, out h);
+                double.TryParse(hsbValues[1], System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.InvariantCulture, out s);
+                double.TryParse(hsbValues[2], System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.InvariantCulture, out v);
+                levelControlSlider.Level = (s == 1 ? v / 2D : (1D - (s / 2D)));
+                levelControlSlider.LevelColor = UiHelper.HsvToRgb(h, 1, 1);
+            }
             module.GetImage((img) =>
             {
                 UiHelper.SafeInvoke(pictureBoxIcon, () =>
@@ -110,111 +121,6 @@ namespace HgSmartControl.Widgets
             }
         }
 
-        private void HsvToRgb(double h, double S, double V, out int r, out int g, out int b)
-        {
-            // ######################################################################
-            // T. Nathan Mundhenk
-            // mundhenk@usc.edu
-            // C/C++ Macro HSV to RGB
-
-            double H = h;
-            while (H < 0) { H += 360; };
-            while (H >= 360) { H -= 360; };
-            double R, G, B;
-            if (V <= 0)
-            { R = G = B = 0; }
-            else if (S <= 0)
-            {
-                R = G = B = V;
-            }
-            else
-            {
-                double hf = H / 60.0;
-                int i = (int)Math.Floor(hf);
-                double f = hf - i;
-                double pv = V * (1 - S);
-                double qv = V * (1 - S * f);
-                double tv = V * (1 - S * (1 - f));
-                switch (i)
-                {
-
-                    // Red is the dominant color
-
-                    case 0:
-                        R = V;
-                        G = tv;
-                        B = pv;
-                        break;
-
-                    // Green is the dominant color
-
-                    case 1:
-                        R = qv;
-                        G = V;
-                        B = pv;
-                        break;
-                    case 2:
-                        R = pv;
-                        G = V;
-                        B = tv;
-                        break;
-
-                    // Blue is the dominant color
-
-                    case 3:
-                        R = pv;
-                        G = qv;
-                        B = V;
-                        break;
-                    case 4:
-                        R = tv;
-                        G = pv;
-                        B = V;
-                        break;
-
-                    // Red is the dominant color
-
-                    case 5:
-                        R = V;
-                        G = pv;
-                        B = qv;
-                        break;
-
-                    // Just in case we overshoot on our math by a little, we put these here. Since its a switch it won't slow us down at all to put these here.
-
-                    case 6:
-                        R = V;
-                        G = tv;
-                        B = pv;
-                        break;
-                    case -1:
-                        R = V;
-                        G = pv;
-                        B = qv;
-                        break;
-
-                    // The color is not defined, we should throw an error.
-
-                    default:
-                        //LFATAL("i Value error in Pixel conversion, Value is %d", i);
-                        R = G = B = V; // Just pretend its black/white
-                        break;
-                }
-            }
-            r = Clamp((int)(R * 255.0));
-            g = Clamp((int)(G * 255.0));
-            b = Clamp((int)(B * 255.0));
-        }
-
-        /// <summary>
-        /// Clamp a value to 0-255
-        /// </summary>
-        private int Clamp(int i)
-        {
-            if (i < 0) return 0;
-            if (i > 255) return 255;
-            return i;
-        }
 
         private void pictureBoxClose_Click(object sender, EventArgs e)
         {
@@ -223,22 +129,21 @@ namespace HgSmartControl.Widgets
 
         private void levelControlSlider_LevelChanged(object sender, double level)
         {
-            panelColor.BackColor = levelControlSlider.LevelColor;
             dynamic hsv = UiHelper.RgbToHsv(levelControlSlider.LevelColor);
             if (level <= 0.5)
             {
-                hsv.V = level * 200F;
-                hsv.S = 100F;
+                hsv.V = level * 2F;
+                hsv.S = 1F;
             }
             else
             {
-                hsv.V = 100F;
-                hsv.S = (1F - ((level - 0.5F) * 2F)) * 100F;
+                hsv.V = 1F;
+                hsv.S = (1F - ((level - 0.5F) * 2F));
             }
-            string command = "Control.ColorHsb/" + (hsv.H / 360F).ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + (hsv.S / 100F).ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + (hsv.V / 100F).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            string command = "Control.ColorHsb/" + (hsv.H).ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + (hsv.S).ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + (hsv.V).ToString(System.Globalization.CultureInfo.InvariantCulture);
             module.ExecuteCommand(command);
-
         }
+
 
     }
 }

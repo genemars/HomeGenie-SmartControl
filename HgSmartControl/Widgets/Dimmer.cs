@@ -63,6 +63,11 @@ namespace HgSmartControl.Widgets
             }
         }
 
+        public LevelControl LevelControl
+        {
+            get { return levelControlSlider;  }
+        }
+
         private void module_PropertyChanged(object sender, ModuleParameter e)
         {
             Refresh();

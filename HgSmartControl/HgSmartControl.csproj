@@ -147,6 +147,12 @@
     <Compile Include="Widgets\Items\BaseItem.Designer.cs">
       <DependentUpon>BaseItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\Switch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\Switch.Designer.cs">
+      <DependentUpon>Switch.cs</DependentUpon>
+    </Compile>
     <Compile Include="Widgets\UiHelper.cs" />
     <Compile Include="Widgets\ValueIndicator.cs">
       <SubType>UserControl</SubType>
