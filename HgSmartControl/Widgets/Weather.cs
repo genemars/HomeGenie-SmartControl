@@ -26,11 +26,16 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using HomeGenie.Client;
+using HomeGenie.Client.Data;
+using System.Net;
 
 namespace HgSmartControl.Widgets
 {
-    public partial class Weather : UserControl
+    public partial class Weather : BaseWidget
     {
+        public override event EventHandler CloseButtonClicked;
+
         private Timer updateTimer = new Timer();
 
         public Weather()
@@ -43,20 +48,60 @@ namespace HgSmartControl.Widgets
             updateTimer.Start();
         }
 
-        void updateTimer_Tick(object sender, EventArgs e)
+        public override void Refresh()
         {
-            labelDate.Text = DateTime.Now.DayOfWeek + ", " + DateTime.Now.ToLongDateString();
+            UiHelper.SafeInvoke(this, () => { RefreshView(); });
+        }
+
+        private void RefreshView()
+        {
+            //labelTitle.Text = module.Name;
+            //labelStatus.Text = module.GetStatusText();
+
+            var location = module.GetProperty("Conditions.DisplayLocation");
+            if (location != null)
+            {
+                labelLocation.Text = location.Value;
+            }
+
+            var conditions = module.GetProperty("Conditions.Description");
+            if (conditions != null)
+            {
+                labelConditions.Text = conditions.Value;
+            }
+
+            var temperature = "";
+            var feelslikeC = module.GetProperty("Conditions.FeelsLikeC");
+            if (feelslikeC != null)
+            {
+                temperature = "  " + feelslikeC.Value + "°C  ";
+            }
+            var feelslikeF = module.GetProperty("Conditions.FeelsLikeF");
+            if (feelslikeF != null)
+            {
+                temperature += "  " + feelslikeF.Value + "°F  ";
+            }
+            labelTemperature.Text = temperature;
+            
+            var imageUrl = module.GetProperty("Conditions.IconUrl");
+            if (imageUrl != null)
+            {
+                Utility.DownloadImage(imageUrl.Value, new NetworkCredential(), (img) => {
+                    this.pictureBoxIcon.Image = UiHelper.ImageFromBytes(img);
+                });
+            }
+        }
+
+        private void updateTimer_Tick(object sender, EventArgs e)
+        {
+            labelDate.Text = DateTime.Now.ToLongDateString();
             labelTime.Text = DateTime.Now.ToLongTimeString().Replace(":", ".");
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void pictureBoxClose_Click(object sender, EventArgs e)
         {
-
+            if (CloseButtonClicked != null) CloseButtonClicked(sender, e);
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

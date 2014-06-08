@@ -32,22 +32,37 @@ namespace HomeGenie.Client
 	{
 		private static Dictionary<string, byte[]> imageCache = new Dictionary<string, byte[]> ();
 
+        public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
+        {
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
+        }
+
 		public static void DownloadImage (string url, NetworkCredential credential, Action<byte[]> callback)
 		{
 			if (imageCache.ContainsKey (url)) {
 				callback (imageCache [url]);
 			} else {
-				try {
-					WebRequest req = WebRequest.Create (url);
-					req.Credentials = credential;
-					Stream stream = req.GetResponse ().GetResponseStream ();
-					byte[] img = ReadToEnd (stream);
-					if (!imageCache.ContainsKey (url))
-						imageCache.Add (url, img);
-					callback (img);
-					stream.Close ();
-				} catch {
-				}
+                Thread t = new Thread(() =>
+                {
+                    try
+                    {
+                        WebRequest req = WebRequest.Create(url);
+                        req.Credentials = credential;
+                        Stream stream = req.GetResponse().GetResponseStream();
+                        byte[] img = ReadToEnd(stream);
+                        if (!imageCache.ContainsKey(url))
+                            imageCache.Add(url, img);
+                        callback(img);
+                        stream.Close();
+                    }
+                    catch
+                    {
+                    }
+                });
+                t.Start();
 			}
 		}
 

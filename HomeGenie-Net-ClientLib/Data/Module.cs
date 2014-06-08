@@ -150,25 +150,28 @@ namespace HomeGenie.Client.Data
 
 		public void On ()
 		{
-			host.ServiceCall (this.Domain + "/" + this.Address + "/Control.On/", () => {
+            host.ServiceCall(this.Domain + "/" + this.Address + "/Control.On/", (response) =>
+            {
 			});
 		}
 
 		public void Off ()
 		{
-			host.ServiceCall (this.Domain + "/" + this.Address + "/Control.Off/", () => {
+			host.ServiceCall (this.Domain + "/" + this.Address + "/Control.Off/", (response) => 
+            {
 			});
 		}
 
 		public void SetLevel (int level)
 		{
-			host.ServiceCall (this.Domain + "/" + this.Address + "/Control.Level/" + level, () => {
+            host.ServiceCall(this.Domain + "/" + this.Address + "/Control.Level/" + level, (response) =>
+            {
 			});
 		}
 
         public void ExecuteCommand(string command)
         {
-            host.ServiceCall(this.Domain + "/" + this.Address + "/" + command, () =>
+            host.ServiceCall(this.Domain + "/" + this.Address + "/" + command, (response) =>
             {
             });
         }

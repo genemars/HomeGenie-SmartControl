@@ -91,12 +91,12 @@ namespace HomeGenie.Client
 			get { return dataGroups; }
 		}
 
-		public void ServiceCall (string apicall, Action callback)
+		public void ServiceCall (string apicall, Action<string> callback)
 		{
 			WebClient client = new WebClient ();
 			client.Credentials = serverCredential;
 			client.DownloadStringCompleted += (object sender, DownloadStringCompletedEventArgs e) => {
-				callback ();
+				callback(e.Result);
 			};
 			client.DownloadStringAsync (new Uri ("http://" + serverAddress + "/api/" + apicall));
 		}

@@ -20,45 +20,46 @@
  *     Project Homepage: http://homegenie.it
  */
 
-using HomeGenie.Client;
+
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HomeGenie.Client.Data;
 
-namespace HgSmartControl
+namespace HgSmartControl.Widgets
 {
-    static class Program
+    public partial class BaseWidget : UserControl
     {
-        private static string hgServerAddress = "127.0.0.1";
-        private static string hgServerUser = "admin";
-        private static string hgServerPassword = "";
-        private static ControlApi homegenie = new ControlApi();
-        private static SmartControl smartcontrol;
+        public virtual event EventHandler CloseButtonClicked;
 
-        /// <summary>
-        /// Punto di ingresso principale dell'applicazione.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        protected Module module = null;
+
+        public BaseWidget()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            homegenie.SetServer(hgServerAddress, hgServerUser, hgServerPassword);
-
-            smartcontrol = new SmartControl();
-            Application.Run(smartcontrol);
+            InitializeComponent();
         }
 
-        public static ControlApi HomeGenie
+        // set data context
+        public Module Module
         {
-            get { return homegenie; }
+            get { return module; }
+            set
+            {
+                this.module = value;
+                this.module.PropertyChanged += module_PropertyChanged;
+                Refresh();
+            }
         }
 
-        public static SmartControl SmartControl
+        private void module_PropertyChanged(object sender, ModuleParameter e)
         {
-            get { return smartcontrol; }
+            Refresh();
         }
 
     }

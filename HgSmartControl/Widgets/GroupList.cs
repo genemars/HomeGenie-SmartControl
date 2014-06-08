@@ -43,6 +43,10 @@ namespace HgSmartControl.Widgets
         public GroupList()
         {
             InitializeComponent();
+
+            listPanelItems.MenuButtonClicked += listPanelItems_MenuButtonClicked;
+            Image menuStats = (Image)Resources.ResourceManager.GetObject("stats");
+            listPanelItems.MenuButtons.Add(menuStats);
         }
 
 
@@ -59,6 +63,13 @@ namespace HgSmartControl.Widgets
             }
         }
 
+        private void listPanelItems_MenuButtonClicked(object sender, int menuIndex)
+        {
+            if (menuIndex == 0)
+            {
+                Program.SmartControl.ShowStatistics();
+            }
+        }
 
         private void item_Clicked(object sender, Group e)
         {

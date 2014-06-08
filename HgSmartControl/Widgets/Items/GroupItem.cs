@@ -94,6 +94,7 @@ namespace HgSmartControl.Widgets.Items
             // Adds indicators
             foreach(Module m in group.Modules)
             {
+                var level = m.GetProperty("Status.Level");
                 var watts = m.GetProperty("Meter.Watts");
                 if (watts != null)
                 {
@@ -119,11 +120,11 @@ namespace HgSmartControl.Widgets.Items
                 {
                     doorwindowCount++;
                 }
-                else if ((m.DeviceType == "Light" || m.DeviceType == "Dimmer") && m.GetProperty("Status.Level").DecimalValue > 0)
+                else if ((m.DeviceType == "Light" || m.DeviceType == "Dimmer") && level != null && level.DecimalValue > 0)
                 {
                     lightsCount++;
                 }
-                else if (m.DeviceType == "Switch" && m.GetProperty("Status.Level").DecimalValue > 0)
+                else if (m.DeviceType == "Switch" && level != null && level.DecimalValue > 0)
                 {
                     switchesCount++;
                 }

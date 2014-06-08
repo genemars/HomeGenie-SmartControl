@@ -34,34 +34,15 @@ using HgSmartControl.Controls;
 
 namespace HgSmartControl.Widgets
 {
-    public partial class ColorLight : UserControl
+    public partial class ColorLight : BaseWidget
     {
-        public event EventHandler CloseButtonClicked;
-
-        private Module module = null;
+        public override event EventHandler CloseButtonClicked;
 
         public ColorLight()
         {
             InitializeComponent();
 
             levelControlSlider.ButtonClicked += svColorGradient_ButtonClicked;
-        }
-
-        // set data context
-        public Module Module
-        {
-            get { return module; }
-            set
-            {
-                this.module = value;
-                this.module.PropertyChanged += module_PropertyChanged;
-                Refresh();
-            }
-        }
-
-        private void module_PropertyChanged(object sender, ModuleParameter e)
-        {
-            Refresh();
         }
 
         public override void Refresh()

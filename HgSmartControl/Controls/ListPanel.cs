@@ -35,6 +35,8 @@ namespace HgSmartControl.Controls
 {
     public partial class ListPanel : Panel
     {
+        public event EventHandler<int> MenuButtonClicked;
+
         private int bottomBarHeight = 48;
         private int itemHeight = 48;
 
@@ -44,6 +46,8 @@ namespace HgSmartControl.Controls
 
         private Image arrowLeft;
         private Image arrowRight;
+
+        private List<Image> menuButtons = new List<Image>();
 
         public ListPanel()
         {
@@ -60,6 +64,11 @@ namespace HgSmartControl.Controls
             InitializeComponent();
 
             Setup();
+        }
+
+        public List<Image> MenuButtons
+        {
+            get { return menuButtons;  }
         }
 
         public void ShowPrevious()
@@ -83,6 +92,7 @@ namespace HgSmartControl.Controls
         {
             this.AutoScroll = false;
             this.AutoSize = false;
+            this.DoubleBuffered = true;
 
             this.ControlAdded += ListPanel_ControlAdded;
             this.ControlRemoved += ListPanel_ControlRemoved;
@@ -92,6 +102,7 @@ namespace HgSmartControl.Controls
 
             arrowLeft = (Image)Resources.ResourceManager.GetObject("left");
             arrowRight = (Image)Resources.ResourceManager.GetObject("right");
+
         }
 
         private void ListPanel_MouseDown(object sender, MouseEventArgs e)
@@ -107,6 +118,19 @@ namespace HgSmartControl.Controls
             }
             else
             {
+                int menuIndex = 0;
+                foreach(Image img in menuButtons)
+                {
+                    if (((Rectangle)img.Tag).Contains(e.Location))
+                    {
+                        if (MenuButtonClicked != null)
+                        {
+                            MenuButtonClicked(this, menuIndex);
+                            break;
+                        }
+                    }
+                    menuIndex++;
+                }
                 //if (TextClicked != null) TextClicked(this, title);
             }
         }
@@ -189,6 +213,17 @@ namespace HgSmartControl.Controls
             //
             // Draw boder background
             e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(50, Color.Cyan)), 0, this.ClientRectangle.Height - bottomBarHeight - 1, this.ClientRectangle.Width - 1, bottomBarHeight);
+
+            // Menu items
+            int menuLength = menuButtons.Count * 30;
+            int menuCount = 1;
+            foreach(Image img in menuButtons)
+            {
+                Rectangle itemRect = new Rectangle((this.ClientRectangle.Width / 2) - (img.Width / 2) - (menuLength - (menuCount * 30)), this.ClientRectangle.Height - bottomBarHeight + ((bottomBarHeight - img.Height) / 2), img.Width, img.Height);
+                img.Tag = itemRect;
+                e.Graphics.DrawImage(img, itemRect);
+                menuCount++;
+            }
         }
 
 

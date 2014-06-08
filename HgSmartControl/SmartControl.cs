@@ -31,21 +31,35 @@ using HomeGenie.Client;
 using HomeGenie.Client.Data;
 
 using HgSmartControl.Widgets;
+using System.Runtime.InteropServices;
 
 namespace HgSmartControl
 {
 
     public partial class SmartControl : Form
     {
-        private string hgServerAddress = "192.168.0.2";
-        private string hgServerUser = "admin";
-        private string hgServerPassword = "hgrocks";
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        [DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+        [DllImport("user32.dll")]
+        static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+        [DllImport("dwmapi.dll")]
+
+        static extern void DwmExtendFrameIntoClientArea(IntPtr hWnd, ref int[] pMargins);
 
         private Timer widgetCycle = new Timer();
         private UserControl currentWidget = null;
 
         private GroupList groupList;
-        private Weather weatherWidget = new Weather();
+        private Loading loadingWidget = new Loading();
+        private GraphPlotter statisticsWidget = new GraphPlotter();
         private List<GroupView> groupWidgets = new List<GroupView>();
 
         private int currentGroup = 0;
@@ -56,8 +70,16 @@ namespace HgSmartControl
 
             if (Environment.OSVersion.Platform.ToString().StartsWith("Win"))
             {
-                this.Size = new Size(320, 240);
+                this.Size = new Size(320, 260);
             }
+
+            statisticsWidget.Dock = DockStyle.Fill;
+            statisticsWidget.CloseButtonClicked += (sender, args) =>
+            {
+                this.Controls.Remove(currentWidget);
+                this.Controls.Add(groupList);
+                widgetCycle.Start();
+            };
 
             groupList = new GroupList();
             groupList.Dock = DockStyle.Fill;
@@ -68,16 +90,14 @@ namespace HgSmartControl
             widgetCycle.Enabled = true;
             widgetCycle.Start();
 
-            currentWidget = weatherWidget;
+            currentWidget = loadingWidget;
             currentWidget.Dock = DockStyle.Fill;
             this.Controls.Add(currentWidget);
 
-            ControlApi hg = new ControlApi();
-            hg.SetServer(hgServerAddress, hgServerUser, hgServerPassword);
-            hg.LoadDataCompleted = () =>
+            Program.HomeGenie.LoadDataCompleted = () =>
             {
 
-                foreach (Group g in hg.Groups)
+                foreach (Group g in Program.HomeGenie.Groups)
                 {
                     GroupView widget = new GroupView();
                     widget.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -95,11 +115,11 @@ namespace HgSmartControl
                     groupWidgets.Add(widget);
                 }
 
-                groupList.SetGroups(hg.Groups);
+                groupList.SetGroups(Program.HomeGenie.Groups);
 
                 System.Threading.Thread t = new System.Threading.Thread(() =>
                 {
-                    System.Threading.Thread.Sleep(10000);
+                    System.Threading.Thread.Sleep(5000);
                     UiHelper.SafeInvoke(this, () =>
                     {
                         if (currentWidget != null)
@@ -112,12 +132,12 @@ namespace HgSmartControl
                 t.Start();
 
             };
-            hg.Connect();
+            Program.HomeGenie.Connect();
         }
 
         void ShowModuleScreen(Module m)
         {
-            UserControl widget = null;
+            BaseWidget widget = null;
             //
             ModuleParameter widgetProperty = m.GetProperty("Widget.DisplayModule");
             if (widgetProperty != null && !String.IsNullOrEmpty(widgetProperty.Value))
@@ -127,33 +147,15 @@ namespace HgSmartControl
                     case "homegenie/generic/light":
                     case "homegenie/generic/switch":
                         widget = new Switch();
-                        (widget as Switch).CloseButtonClicked += (sender, args) =>
-                        {
-                            this.Controls.Remove(widget);
-                            this.Controls.Add(currentWidget);
-                            widgetCycle.Start();
-                        };
-                        (widget as Switch).Module = m;
                         break;
                     case "homegenie/generic/dimmer":
                         widget = new Dimmer();
-                        (widget as Dimmer).CloseButtonClicked += (sender, args) =>
-                        {
-                            this.Controls.Remove(widget);
-                            this.Controls.Add(currentWidget);
-                            widgetCycle.Start();
-                        };
-                        (widget as Dimmer).Module = m;
                         break;
                     case "homegenie/generic/colorlight":
                         widget = new ColorLight();
-                        (widget as ColorLight).CloseButtonClicked += (sender, args) =>
-                        {
-                            this.Controls.Remove(widget);
-                            this.Controls.Add(currentWidget);
-                            widgetCycle.Start();
-                        };
-                        (widget as ColorLight).Module = m;
+                        break;
+                    case "weather/wunderground/conditions":
+                        widget = new Weather();
                         break;
                     default:
                         break;
@@ -165,29 +167,22 @@ namespace HgSmartControl
                 if (m.DeviceType == "Dimmer" || m.DeviceType == "Light" || m.DeviceType == "Shutter" || m.DeviceType == "Siren")
                 {
                     widget = new Dimmer();
-                    (widget as Dimmer).CloseButtonClicked += (sender, args) =>
-                    {
-                        this.Controls.Remove(widget);
-                        this.Controls.Add(currentWidget);
-                        widgetCycle.Start();
-                    };
-                    (widget as Dimmer).Module = m;
                 }
                 else if (m.DeviceType == "Switch")
                 {
                     widget = new Switch();
-                    (widget as Switch).CloseButtonClicked += (sender, args) =>
-                    {
-                        this.Controls.Remove(widget);
-                        this.Controls.Add(currentWidget);
-                        widgetCycle.Start();
-                    };
-                    (widget as Switch).Module = m;
                 }
             }
             //
             if (widget != null)
             {
+                widget.CloseButtonClicked += (sender, args) =>
+                {
+                    this.Controls.Remove(widget);
+                    this.Controls.Add(currentWidget);
+                    widgetCycle.Start();
+                };
+                widget.Module = m;
                 widget.Dock = DockStyle.Fill;
                 //
                 widgetCycle.Stop();
@@ -196,11 +191,22 @@ namespace HgSmartControl
             }
         }
 
+        public void ShowStatistics()
+        {
+            this.Controls.Remove(groupList);
+            if (currentWidget != null)
+            {
+                this.Controls.Remove(currentWidget);
+            }
+            currentWidget = statisticsWidget;
+            this.Controls.Add(currentWidget);
+        }
+
         void widgetCycle_Tick(object sender, EventArgs e)
         {
             return;
 
-            if (currentWidget.Equals(weatherWidget))
+            if (currentWidget.Equals(loadingWidget))
             {
                 if (groupWidgets.Count > 0)
                 {
@@ -213,7 +219,7 @@ namespace HgSmartControl
             else
             {
                 this.Controls.Remove(currentWidget);
-                currentWidget = weatherWidget;
+                currentWidget = loadingWidget;
             }
             currentWidget.Dock = DockStyle.Fill;
             this.Controls.Add(currentWidget);
@@ -229,6 +235,15 @@ namespace HgSmartControl
             currentWidget = groupWidgets[e];
             currentWidget.Dock = DockStyle.Fill;
             this.Controls.Add(currentWidget);
+        }
+
+        private void SmartControl_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
         }
     }
 }

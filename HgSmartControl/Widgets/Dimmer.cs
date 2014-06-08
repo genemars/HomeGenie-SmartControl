@@ -36,41 +36,18 @@ using HgSmartControl.Controls;
 
 namespace HgSmartControl.Widgets
 {
-    public partial class Dimmer : UserControl
+    public partial class Dimmer : BaseWidget
     {
-        public event EventHandler CloseButtonClicked;
-
-        private double buttonOffEnd = 23;
-        private double buttonOnStart = 78;
-        private double currentLevel = 0;
-
-        private Module module = null;
+        public override event EventHandler CloseButtonClicked;
 
         public Dimmer()
         {
             InitializeComponent();
         }
 
-        // set data context
-        public Module Module
-        {
-            get { return module; }
-            set 
-            {
-                this.module = value;
-                this.module.PropertyChanged += module_PropertyChanged;
-                Refresh();
-            }
-        }
-
         public LevelControl LevelControl
         {
             get { return levelControlSlider;  }
-        }
-
-        private void module_PropertyChanged(object sender, ModuleParameter e)
-        {
-            Refresh();
         }
 
         public override void Refresh()
@@ -94,11 +71,6 @@ namespace HgSmartControl.Widgets
         private void pictureBoxClose_Click(object sender, EventArgs e)
         {
             if (CloseButtonClicked != null) CloseButtonClicked(sender, e);
-        }
-
-        private void pictureBoxLevel_MouseMove(object sender, MouseEventArgs e)
-        {
-
         }
 
         private void levelControlSlider_ButtonClicked(object sender, LevelControlButton button)

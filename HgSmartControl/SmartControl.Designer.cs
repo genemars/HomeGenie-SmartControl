@@ -34,12 +34,10 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(326, 246);
-            this.ControlBox = false;
-            this.DoubleBuffered = true;
+            this.ClientSize = new System.Drawing.Size(326, 248);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.MaximumSize = new System.Drawing.Size(326, 246);
+            this.MaximumSize = new System.Drawing.Size(326, 248);
             this.MinimumSize = new System.Drawing.Size(320, 240);
             this.Name = "SmartControl";
             this.ShowIcon = false;
@@ -47,6 +45,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "HG Smart Control";
             this.TopMost = true;
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SmartControl_MouseDown);
             this.ResumeLayout(false);
 
         }

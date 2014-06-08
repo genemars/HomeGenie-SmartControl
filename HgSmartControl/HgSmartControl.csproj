@@ -87,6 +87,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Widgets\BaseWidget.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\BaseWidget.Designer.cs">
+      <DependentUpon>BaseWidget.cs</DependentUpon>
+    </Compile>
     <Compile Include="Widgets\ColorLight.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -147,6 +153,12 @@
     <Compile Include="Widgets\Items\BaseItem.Designer.cs">
       <DependentUpon>BaseItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\Loading.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Widgets\Loading.Designer.cs">
+      <DependentUpon>Loading.cs</DependentUpon>
+    </Compile>
     <Compile Include="Widgets\Switch.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -182,6 +194,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Widgets\BaseWidget.resx">
+      <DependentUpon>BaseWidget.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Widgets\ColorLight.resx">
       <DependentUpon>ColorLight.cs</DependentUpon>
     </EmbeddedResource>
@@ -212,6 +227,9 @@
     <EmbeddedResource Include="Widgets\Items\BaseItem.resx">
       <DependentUpon>BaseItem.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Widgets\Loading.resx">
+      <DependentUpon>Loading.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Widgets\ValueIndicator.resx">
       <DependentUpon>ValueIndicator.cs</DependentUpon>
     </EmbeddedResource>
@@ -232,9 +250,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Images\button_stats.png" />
     <Content Include="Images\Weather\weather_day_chancerain.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\homegenie_173x173.png" />
     <Content Include="Resources\huebar.png" />
     <None Include="Resources\plug.png" />
     <None Include="Resources\luminance.png" />
